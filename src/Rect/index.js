@@ -105,9 +105,9 @@ export default class Rect extends PureComponent {
   startResize = (e, cursor) => {
     if (e.button !== 0) return
     document.body.style.cursor = cursor
-    const { styles: { position: { centerX, centerY }, size: { width, height }, transform: { rotateAngle }, radious } } = this.props
+    const { styles: { position: { centerX, centerY }, size: { width, height }, transform: { rotateAngle }, radius } } = this.props
     const { clientX: startX, clientY: startY } = e
-    const rect = { width, height, centerX, centerY, rotateAngle, radious }
+    const rect = { width, height, centerX, centerY, rotateAngle, radius }
     const type = e.target.getAttribute('class').split(' ')[ 0 ]
     this.props.onResizeStart && this.props.onResizeStart()
     this._isMouseDown = true
@@ -141,7 +141,7 @@ export default class Rect extends PureComponent {
         position: { centerX, centerY },
         size: { width, height },
         transform: { rotateAngle },
-        radious
+        radius
       },
       zoomable,
       rotatable,
@@ -153,7 +153,7 @@ export default class Rect extends PureComponent {
       transform: `rotate(${rotateAngle}deg)`,
       left: centerX - Math.abs(width) / 2,
       top: centerY - Math.abs(height) / 2,
-      borderRadius: `${radious.rtl}px ${radious.rtr}px ${radious.rbr}px ${radious.rbl}px`
+      borderRadius: `${radius.rtl}px ${radius.rtr}px ${radius.rbr}px ${radius.rbl}px`
     }
     const direction = zoomable.split(',').map(d => d.trim()).filter(d => d) // TODO: may be speed up
 

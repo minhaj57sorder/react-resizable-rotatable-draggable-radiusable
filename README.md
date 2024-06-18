@@ -5,7 +5,7 @@
 A react widget that can be resized and rotated via a handler.
 
 The mother of this library is "react-resizable-rotatable-draggable" which is npm package.
-Additionaly this library has feature of changing radious and customizable press shift key + (drag, resize, radious)
+Additionaly this library has feature of changing radius and customizable press shift key + (drag, resize, radius)
 
 ### Installation
 
@@ -34,7 +34,7 @@ class App extends Component {
       top: 100,
       left: 100,
       rotateAngle: 0,
-      borderRadious: {
+      borderRadius: {
         rtl: 0,
         rtr: 0,
         rbr: 0,
@@ -46,18 +46,18 @@ class App extends Component {
   handleResize = (style, isShiftKey, type) => {
     // type is a string and it shows which resize-handler you clicked
     // e.g. if you clicked top-right handler, then type is 'tr'
-    let { top, left, width, height, radious } = style
+    let { top, left, width, height, radius } = style
     top = Math.round(top)
     left = Math.round(left)
     width = Math.round(width)
     height = Math.round(height)
-    borderRadious = radious
+    borderRadius = radius
     this.setState({
       top,
       left,
       width,
       height,
-      borderRadious
+      borderRadius
     })
   }
 

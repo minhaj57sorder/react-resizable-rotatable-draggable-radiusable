@@ -35,40 +35,40 @@ const setHeightAndDeltaH = (height, deltaH, minHeight) => {
 }
 
 export const getNewStyle = (type, rect, deltaW, deltaH, ratio, minWidth, minHeight) => {
-  let { width, height, centerX, centerY, rotateAngle, radious, radiousRatio } = rect
+  let { width, height, centerX, centerY, rotateAngle, radius, radiusRatio } = rect
   const widthFlag = width < 0 ? -1 : 1
   const heightFlag = height < 0 ? -1 : 1
   width = Math.abs(width)
   height = Math.abs(height)
-  const newRadious = {
-    rtl: radious?.rtl || 0,
-    rtr: radious?.rtr || 0,
-    rbr: radious?.rbr || 0,
-    rbl: radious?.rbl || 0,
+  const newRadius = {
+    rtl: radius?.rtl || 0,
+    rtr: radius?.rtr || 0,
+    rbr: radius?.rbr || 0,
+    rbl: radius?.rbl || 0,
   }
-  const updateSingleRadious = (key, value, direction) => {
+  const updateSingleRadius = (key, value, direction) => {
     const minVal = Math.min(width, height)
-    if (direction > 0 && value < minVal - newRadious[key]) {
-      newRadious[key] += Math.round(value)
+    if (direction > 0 && value < minVal - newRadius[key]) {
+      newRadius[key] += Math.round(value)
     }
-    else if (direction > 0 && value > minVal - newRadious[key]) {
-      newRadious[key] = minVal
+    else if (direction > 0 && value > minVal - newRadius[key]) {
+      newRadius[key] = minVal
     }
-    else if (direction < 0 && value < newRadious[key]) {
-      newRadious[key] -= Math.round(value)
+    else if (direction < 0 && value < newRadius[key]) {
+      newRadius[key] -= Math.round(value)
     } 
-    else if (direction < 0 && value > newRadious[key]) {
-      newRadious[key] = 0
+    else if (direction < 0 && value > newRadius[key]) {
+      newRadius[key] = 0
     }
   }
   const updateRadiuses = (keys, value, direction) => {
-    if (radiousRatio) {
-      Object.keys(newRadious).forEach(key => {
-        updateSingleRadious(key, value, direction)
+    if (radiusRatio) {
+      Object.keys(newRadius).forEach(key => {
+        updateSingleRadius(key, value, direction)
       })
     } else {
       keys.forEach(key => {
-        updateSingleRadious(key, value, direction)
+        updateSingleRadius(key, value, direction)
       })
     }
   }
@@ -252,15 +252,15 @@ export const getNewStyle = (type, rect, deltaW, deltaH, ratio, minWidth, minHeig
       width: width * widthFlag,
       height: height * heightFlag
     },
-    radious: {
-      ...newRadious
+    radius: {
+      ...newRadius
     }
   }
 }
 
 const cursorStartMap = { n: 0, ne: 1, e: 2, se: 3, s: 4, sw: 5, w: 6, nw: 7 }
 const cursorDirectionArray = ['ns', 'nesw', 'ew', 'nwse', 'ns', 'nesw', 'ew', 'nwse']
-const cursorDirectionArrayForRadious = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
+const cursorDirectionArrayForRadius = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
 const cursorMap = { 0: 0, 1: 1, 2: 2, 3: 2, 4: 3, 5: 4, 6: 4, 7: 5, 8: 6, 9: 6, 10: 7, 11: 8 }
 export const getCursor = (rotateAngle, d) => {
   const increment = cursorMap[Math.floor(rotateAngle / 30)]
@@ -268,7 +268,7 @@ export const getCursor = (rotateAngle, d) => {
   const newIndex = (index + increment) % 8
   // 'ne', 'se', 'sw', 'nw'
   if (d.includes('r')) {
-    return cursorDirectionArrayForRadious[newIndex]
+    return cursorDirectionArrayForRadius[newIndex]
   }
   return cursorDirectionArray[newIndex]
 }
@@ -279,7 +279,7 @@ export const centerToTL = ({ centerX, centerY, width, height, rotateAngle, borde
   width,
   height,
   rotateAngle,
-  radious: borderRadius
+  radius: borderRadius
 })
 
 export const tLToCenter = ({ top, left, width, height, rotateAngle, borderRadius }) => ({
@@ -294,7 +294,7 @@ export const tLToCenter = ({ top, left, width, height, rotateAngle, borderRadius
   transform: {
     rotateAngle
   },
-  radious: {
+  radius: {
     ...borderRadius
   }
 })

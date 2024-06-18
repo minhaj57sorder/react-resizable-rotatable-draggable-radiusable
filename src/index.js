@@ -81,19 +81,19 @@ export default class ReactResizer extends Component {
         const beta = alpha - degToRadian(rotateAngle + parentRotateAngle)
         const deltaW = length * Math.cos(beta)
         const deltaH = length * Math.sin(beta)
-        let radiousRatio = isShiftKey
+        let radiusRatio = isShiftKey
         let ratio = isShiftKey && !aspectRatio ? rect.width / rect.height : aspectRatio
         const listOfProportional = this.props.defaultProportionalZoomable.split(",").map((item) => zoomableMap[item.trim()])
         if (this.props.defaultProportionalZoomable && listOfProportional.includes(type)) {
             ratio = !isShiftKey && !aspectRatio ? rect.width / rect.height : aspectRatio
-            radiousRatio = !isShiftKey
+            radiusRatio = !isShiftKey
         }
         const {
             position: { centerX, centerY },
             size: { width, height },
-            radious
-        } = getNewStyle(type, { ...rect, rotateAngle, radiousRatio }, deltaW, deltaH, ratio, minWidth, minHeight)
-        this.props.onResize(centerToTL({ centerX, centerY, width, height, rotateAngle, borderRadius: radious }), isShiftKey, type)
+            radius
+        } = getNewStyle(type, { ...rect, rotateAngle, radiusRatio }, deltaW, deltaH, ratio, minWidth, minHeight)
+        this.props.onResize(centerToTL({ centerX, centerY, width, height, rotateAngle, borderRadius: radius }), isShiftKey, type)
     }
 
     handleDrag = (deltaX, deltaY) => {
