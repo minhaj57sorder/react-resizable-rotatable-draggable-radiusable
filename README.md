@@ -33,23 +33,31 @@ class App extends Component {
       height: 100,
       top: 100,
       left: 100,
-      rotateAngle: 0
+      rotateAngle: 0,
+      borderRadious: {
+        rtl: 0,
+        rtr: 0,
+        rbr: 0,
+        rbl: 0,
+      }
     }
   }
 
   handleResize = (style, isShiftKey, type) => {
     // type is a string and it shows which resize-handler you clicked
     // e.g. if you clicked top-right handler, then type is 'tr'
-    let { top, left, width, height } = style
+    let { top, left, width, height, radious } = style
     top = Math.round(top)
     left = Math.round(left)
     width = Math.round(width)
     height = Math.round(height)
+    borderRadious = radious
     this.setState({
       top,
       left,
       width,
-      height
+      height,
+      borderRadious
     })
   }
 
@@ -79,7 +87,7 @@ class App extends Component {
           // aspectRatio={false}
           // minWidth={10}
           // minHeight={10}
-          zoomable='n, w, s, e, nw, ne, se, sw'
+          zoomable="n, w, s, e, nw, ne, se, sw, rne, rnw, rse, rsw"
           defaultProportionalZoomable="nw, ne, se, sw, rne, rnw, rse, rsw"
           // rotatable={true}
           // onRotateStart={this.handleRotateStart}
